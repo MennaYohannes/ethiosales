@@ -1,0 +1,25 @@
+{
+    "lastRead":2,
+    "data":[
+        {
+            "shopId":1,
+            "shopName":"Kaleb shop",
+            "shopPic":"defaultShop.png",
+            "shopPhone":"0911111111",
+            "subCount":0,
+            "saleInfo":"Addidas",
+            "salePic":"adidas.jpg",
+            "salePrice":"2000"  
+        },
+        {
+            "shopId":2,
+            "shopName":"Kaleb shop",
+            "shopPic":"defaultShop.png",
+            "shopPhone":"0911111111",
+            "subCount":0,
+            "saleInfo":"Skecher",
+            "salePic":"skecher.jpg",
+            "salePrice":"2000"  
+        }
+    ]
+}

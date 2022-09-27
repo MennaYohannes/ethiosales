@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wellcome to Ethio Sales.... </title>
+    <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+    <link rel='stylesheet'   href="home.css" />
+</head>
+<body>
+<header id='topHeader'>
+	<img src="assets/logo.png" />
+  <div onclick="toogleList(document.getElementsByTagName('ul')[0])" id='hbm'>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<ul>
+		<li  class='active' onclick="window.location.href='home.html';">
+            <img src='assets/homeLogoBlue.png'/>
+			<span>Home</span>
+		</li><li  onclick="window.location.href='my shop.html';">
+        	<img  src='assets/myShopsLogo.png'/>
+			<span>My Shops</span>
+        </li><li  onclick="window.location.href='Subscribed.html';">
+          <img src='assets/subscribedLogo.png'/>
+      <span>Subscribed</span>
+        </li><li onclick="window.location.href='new shop.html';">
+        	<img src='assets/newShopLogo.png'/>
+			<span>New Shop</span>
+        </li><li onclick="window.location.href='logout.html';">
+        	<img src='assets/logout.png'/>
+			<span>Logout</span>
+        </li>
+	</ul>
+</header>
+<div id='headerSpace'></div>
+<main >
+	<div id='searchCont'>
+		<h1>Better Sale. Better Quality</h1>
+        <h1>Ethiopia's Number 1 Sale Site</h1>
+        <div id='search'>
+           <div id='key'><input onkeypress="if(event.keyCode==13) search(this)" id='q' placeholder="What are you looking for?" /></div><div onclick="toogleList(document.getElementsByTagName('ul')[1])" id='options'>
+             <span id='selectedItem'>Item<span id='caret'></span></span>
+             <span id="dropdown">
+              <ul>
+                <li id='option1' onclick="changeTo(this)" class='active'>Item</li>
+                <li id='option2' onclick="changeTo(this)">Shop</li>
+              </ul>
+             </span>
+           </div><div id='btn'><button onclick="search(document.getElementById('q'))"><img src='assets/searchIcon.png' /></button></div>
+        </div>
+  </div>	
+  <div id='feedCont'>
+		<div id='feedSales'></div>
+		<div style='display: none;' id='feedShops'></div>
+    <div align='center' id='loading'> <img src='assets/loading.gif' width='300px' /></div>
+		<div align='center' style='display: none;' id='seemore'> <button style='background: #0d529d !important;'>See More</button></div> 
+	</div>
+</main>
+<footer>
+	<div id='infoCont'>
+           <div id='aboutUs'>
+       	 <span>About Us<br/></span>
+       	 <span>
+       	 	ethiosales.com is the first online sales solution provider introduced in Ethiopia. The website advertises salses across a wide range of job types by different employers, including private, local, international, multinational, who are buying in Ethiopia. 
+       	 </span>
+       </div>
+       <div id='contactUs'>
+       	<span>Contact Us<br/></span>
+       	<span>
+       		Address: Snap Plaza 8th floor, Bole Next to The Millennium hall. Addis Ababa, Ethiopia
+<br/>Phone: +251-116-67-33-24 | +251-924 91 08 47
+<br/>Email: info@ethiosales.net info@ethiosales.net 
+       	</span>
+       </div>
+        <div style="clear:both"></div>
+	</div>
+	<div id='socials' align=center >
+    <img onclick="window.open('http://facebook.com/ethisales','_blank')" src="assets/fbIcon.png" />
+    <img onclick="window.open('http://instagram.com/ethisales','_blank')" src="assets/instagramIcon.png" />
+    <img onclick="window.open('http://twitter.com/ethisales','_blank')" src="assets/twitterIcon.png" />
+    <img onclick="window.open('http://t.me.com/ethisales','_blank')" src="assets/whatsUpIcon.png" />
+	</div>
+	<p>&copy;2020 ethiosales.com All right reserveds<p><br/><br/>
+</footer>
+<script type="text/javascript">
+  var lastRead = "0";
+  var selectedItem = document.getElementById('selectedItem');
+  var feedSales = document.getElementById('feedSales');
+  var feedShops = document.getElementById('feedShops');
+	function toogleList(doc){
+		if(doc.style.display =='block')
+          doc.style.display ='none';
+        else doc.style.display ='block';
+	}
+	function changeTo(doc){
+		document.getElementById('option1').removeAttribute('class');
+		document.getElementById('option2').removeAttribute('class');
+		document.getElementById('selectedItem').innerHTML = doc.innerHTML+"<span id='caret'></span>";
+		doc.setAttribute("class","active");
+	}
+
+  function search(q){
+     if(selectedItem.innerHTML.match("Item")){
+             lastRead ="0";
+             feedShops.style.display = 'none';
+             feedSales.style.display = 'block';
+             feedSales.innerHTML  = "";
+            if(q.value.trim()=="") loadAllItems();
+            else loadAllSearchItems(q.value);    
+     }else{
+             lastRead ="0";
+             feedShops.style.display = 'block';
+             feedSales.style.display = 'none';
+             feedShops.innerHTML  = "";
+            if(q.value.trim()=="") loadAllShops();
+            else loadAllSearchShops(q.value);    
+     }
+  }
+  function loadAllSearchShops(key){
+     document.getElementById('loading').style.display='block';
+        if(lastRead!="-1"){
+           var xmlhttp = new XMLHttpRequest();
+           xmlhttp.onreadystatechange = function() {
+                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   document.getElementById('loading').style.display='none';
+                     document.getElementById('seemore').style.display='none';
+                     var res = JSON.parse(xmlhttp.responseText);     
+                     if(res.data.length==0){
+                      let mes ='No shops found';
+                      document.getElementById("feedShops").innerHTML = `<span style='font-family:arial;font-size:60px;display:block;text-align:center;color:#505050;'>${mes}</span>`;
+                       return;
+                     }
+                     res.data.forEach((shop)=>{
+                      document.getElementById("feedShops").innerHTML += `
+                      <div class="shopPost">
+                          <img class="smallLogo" src="shopPics/${shop.shopPic}">
+                          <span class="saleName">${shop.shopName}</span>
+                          <sapn class="subscriberCount">Subscribers ${shop.subCount}</sapn>
+                          <span class="saleItemInfo"><img src="assets/locationLogo.png"> &nbsp;${shop.shopLocation}</span>
+                          <span class="saleItemInfo"><img src="assets/phoneLogo.png"> &nbsp;${shop.shopPhone}</span>
+                          <br><button onclick="window.location.href='shop.php?s=${shop.shopId}';">View Shop</button><br>
+                       </div>`;   
+                     });
+                     lastRead= res.lastRead;
+                    if(lastRead=='-1') document.getElementById('seemore').style.display='none';
+                    else{
+                      document.getElementById('seemore').style.display='block';
+                      document.getElementById('seemore').setAttribute("onclick","loadAllSearchShops('"+key+"')");
+                    }
+                  }
+            };
+            xmlhttp.open("POST", "loadAllShops.json", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("spoint="+lastRead+"&key="+key);
+      }else document.getElementById('seemore').style.display='none';
+  }
+  function loadAllSearchItems(key){
+     document.getElementById('loading').style.display='block';
+        if(lastRead!="-1"){
+           var xmlhttp = new XMLHttpRequest();
+           xmlhttp.onreadystatechange = function() {
+                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   document.getElementById('loading').style.display='none';
+                     document.getElementById('seemore').style.display='none';
+                     var res = JSON.parse(xmlhttp.responseText);     
+                     if(res.data.length==0){
+                      let mes ='No items found';
+                      document.getElementById("feedShops").innerHTML = `<span style='font-family:arial;font-size:60px;display:block;text-align:center;color:#505050;'>${mes}</span>`;
+                       return;
+                     }
+                     res.data.forEach((sale)=>{
+                      document.getElementById("feedSales").innerHTML += `
+                      <div class="salePost">
+                        <div class="shopeInfo">
+			                      <img class="smallLogo" src="./shopPics/${sale.shopPic}">
+			                      <span class="saleName">${sale.shopName}</span>
+			                      <span class="subscriberCount">Subscribers ${sale.subCount}</span>
+                            <div style="clear:both"></div>
+                        </div>
+                        <img class="saleItemPic" src="./itemPics/${sale.salePic}">
+                        <br><span class="saleItemInfo saleItemName">${sale.saleInfo}</span>
+                        <span class="saleItemInfo"><img src="assets/moneyLogo.png"> ${sale.salePrice}</span>
+                        <span class="saleItemInfo"><img src="assets/phoneLogo.png"> ${sale.shopPhone}</span>
+			              <br><button style="display:inline" onclick="window.open('shop.html?s=${sale.shopId}','_blank')" class="formBtn">View Shop</button>
+                     <br><br></div>`;   
+                     });
+                     lastRead= res.lastRead;
+                      if(lastRead=='-1') document.getElementById('seemore').style.display='none';
+                    else{
+                      document.getElementById('seemore').style.display='block';
+                      document.getElementById('seemore').setAttribute("onclick","loadAllSearchItems('"+key+"')");
+                    }
+                  }
+            };
+            xmlhttp.open("POST", "loadAllItems.json", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("spoint="+lastRead+"&key="+key);
+      }else document.getElementById('seemore').style.display='none';
+  }
+
+  function loadAllItems(){
+    document.getElementById('seemore').style.display='none';
+    document.getElementById('loading').style.display='block';
+     if(lastRead!="-1"){
+             var xmlhttp = new XMLHttpRequest();
+             xmlhttp.onreadystatechange = function() {
+                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                     document.getElementById('loading').style.display='none';
+                     document.getElementById('seemore').style.display='none';
+                     var res = JSON.parse(xmlhttp.responseText);     
+                     if(res.data.length==0){
+                      let mes ='No items found';
+                      document.getElementById("feedShops").innerHTML = `<span style='font-family:arial;font-size:60px;display:block;text-align:center;color:#505050;'>${mes}</span>`;
+                       return;
+                     }
+                     res.data.forEach((sale)=>{
+                      document.getElementById("feedSales").innerHTML += `
+                      <div class="salePost">
+                        <div class="shopeInfo">
+			                      <img class="smallLogo" src="./shopPics/${sale.shopPic}">
+			                      <span class="saleName">${sale.shopName}</span>
+			                      <span class="subscriberCount">Subscribers ${sale.subCount}</span>
+                            <div style="clear:both"></div>
+                        </div>
+                        <img class="saleItemPic" src="./itemPics/${sale.salePic}">
+                        <br><span class="saleItemInfo saleItemName">${sale.saleInfo}</span>
+                        <span class="saleItemInfo"><img src="assets/moneyLogo.png"> ${sale.salePrice}</span>
+                        <span class="saleItemInfo"><img src="assets/phoneLogo.png"> ${sale.shopPhone}</span>
+			              <br><button style="display:inline" onclick="window.open('shop.html?s=${sale.shopId}','_blank')" class="formBtn">View Shop</button>
+                     <br><br></div>`;   
+                     });
+                     lastRead= res.lastRead;
+                      if(lastRead=='-1') document.getElementById('seemore').style.display='none';
+                     else{
+                       document.getElementById('seemore').style.display='block';
+                       document.getElementById('seemore').setAttribute("onclick","loadAllItems()");
+                     }
+                  }
+            };
+            xmlhttp.open("POST", "loadAllItems.json", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("spoint="+lastRead);
+      }else document.getElementById('seemore').style.display='none';
+  } 
+  function loadAllShops(){
+     document.getElementById('loading').style.display='block';
+    document.getElementById('seemore').style.display='none';
+     if(lastRead!="-1"){
+           var xmlhttp = new XMLHttpRequest();
+           xmlhttp.onreadystatechange = function() {
+                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   document.getElementById('loading').style.display='none';
+                     document.getElementById('seemore').style.display='none';
+                     var res = JSON.parse(xmlhttp.responseText);     
+                     if(res.data.length==0){
+                      let mes ='No shops found';
+                      document.getElementById("feedShops").innerHTML = `<span style='font-family:arial;font-size:60px;display:block;text-align:center;color:#505050;'>${mes}</span>`;
+                       return;
+                     }
+                     res.data.forEach((shop)=>{
+                      document.getElementById("feedShops").innerHTML += `
+                      <div class="shopPost">
+                          <img class="smallLogo" src="shopPics/${shop.shopPic}">
+                          <span class="saleName">${shop.shopName}</span>
+                          <sapn class="subscriberCount">Subscribers ${shop.subCount}</sapn>
+                          <span class="saleItemInfo"><img src="assets/locationLogo.png"> &nbsp;${shop.shopLocation}</span>
+                          <span class="saleItemInfo"><img src="assets/phoneLogo.png"> &nbsp;${shop.shopPhone}</span>
+                          <br><button onclick="window.location.href='shop.php?s=${shop.shopId}';">View Shop</button><br>
+                       </div>`;   
+                     });
+                     lastRead= res.lastRead;
+                      if(lastRead=='-1') document.getElementById('seemore').style.display='none';
+                  else{
+                      document.getElementById('seemore').style.display='block';
+                      document.getElementById('seemore').setAttribute("onclick","loadAllShops()");
+                    }
+                  }
+            };
+            xmlhttp.open("POST", "loadAllShops.json", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("spoint="+lastRead);
+      }else document.getElementById('seemore').style.display='none';
+  }
+  loadAllItems();
+</script>
+</body>
+</html>

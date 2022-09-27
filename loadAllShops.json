@@ -1,0 +1,13 @@
+{
+    "lastRead":1,
+    "data":[
+        {
+            "shopId":1,
+            "shopName":"Kaleb shop",
+            "shopPic":"defaultShop.png",
+            "shopPhone":"0911111111",
+            "shopLocation":"4 kilo",
+            "subCount":0
+        }
+    ]
+}

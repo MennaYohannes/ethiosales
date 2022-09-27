@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wellcome to Ethio Sales....</title>
+   <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+    <link rel='stylesheet'   href="new shop.css" />
+</head>
+<body>
+<header id='topHeader'>
+  <img src="assets/logo.png" />
+	<div onclick="toogleList(document.getElementsByTagName('ul')[0])" id='hbm'>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<ul>
+		<li onclick="window.location.href='home.html';">
+            <img src='assets/homeLogoBlue.png'/>
+			<span>Home</span>
+		</li><li  onclick="window.location.href='my shop.html';">
+        	<img  src='assets/myShopsLogo.png'/>
+			<span>My Shops</span>
+        </li><li  onclick="window.location.href='Subscribed.html';">
+          <img src='assets/subscribedLogo.png'/>
+      <span>Subscribed</span>
+        </li><li  class='active' onclick="window.location.href='new shop.html';">
+        	<img src='assets/newShopLogo.png'/>
+			<span>New Shop</span>
+        </li><li onclick="window.location.href='logout.html';">
+        	<img src='assets/logout.png'/>
+			<span>Logout</span>
+        </li>
+	</ul>
+</header>
+<div id='headerSpace'></div>
+<main >
+  <div id="formCont">
+   <div id='picCont'>
+      <img id='shopPic' src="shopPics/defaultShop.png"/>
+      <button onclick="document.getElementById('ppic').click();" class='formBtn'><img src='assets/uploadIcon.png' style='width:20px;height:20px;background:transparent;border-radius:0;float:left;display:inline-block;margin-top:-2px;opacity: 0.8;' /> &nbsp;Upload</button>
+   </div>
+       <form action="createShop.html" onsubmit="return validate(this)" method="post"  enctype="multipart/form-data">
+           <div id='form'>
+                <span>Shop Name</span>
+                <input name="sName" type="text" placeholder="Shopname" required />
+                <span>Phone Number</span>
+                <input name="sPhone" type="tel" placeholder="Phone number" required />
+                <span>Shop Location</span>
+                <input name="sLocation" type="location" placeholder="location" required />
+                <input  name='sPic' accept="image/*" onchange="loadPic(event)" id='ppic' style="display: none;" type="file" />
+           </div>
+           <div style='clear:both;'></div>
+           <div id="btn" align='center'> <button type='submit' class='formBtn' ><img src='assets/newShopLogoWhite.png' style='width:20px;height:20px;float:left;display:inline-block;opacity: 0.8;' /> &nbsp;Create</button>
+           </div>
+       </form>
+ </div>
+ </main>
+<footer>
+	<div id='infoCont'>
+           <div id='aboutUs'>
+       	 <span>About Us<br/></span>
+       	 <span>
+       	 	ethiosales.com is the first online sales solution provider introduced in Ethiopia. The website advertises salses across a wide range of job types by different employers, including private, local, international, multinational, who are buying in Ethiopia. 
+       	 </span>
+       </div>
+       <div id='contactUs'>
+       	<span>Contact Us<br/></span>
+       	<span>
+       		Address: Snap Plaza 8th floor, Bole Next to The Millennium hall. Addis Ababa, Ethiopia
+<br/>Phone: +251-116-67-33-24 | +251-924 91 08 47
+<br/>Email: info@ethiosales.net info@ethiosales.net 
+       	</span>
+       </div>
+        <div style="clear:both"></div>
+	</div>
+	<div id='socials' align=center >
+		<img  src="assets/fbIcon.png" />
+    <img  src="assets/instagramIcon.png" />
+    <img  src="assets/twitterIcon.png" />
+    <img  src="assets/whatsUpIcon.png" />
+	</div>
+	<p>&copy;2020 ethiosales.com All right reserveds<p><br/><br/>
+</footer>
+<script type="text/javascript">
+  var output =  document.getElementById('shopPic');
+  var formLabels = document.getElementsByTagName('form')[0].querySelectorAll("span");
+	function toogleList(doc){
+		if(doc.style.display =='block')
+          doc.style.display ='none';
+        else doc.style.display ='block';
+	}
+	function changeTo(doc){
+		document.getElementById('option1').removeAttribute('class');
+		document.getElementById('option2').removeAttribute('class');
+		document.getElementById('selectedItem').innerHTML = doc.innerHTML+"<span id='caret'></span>";
+		doc.setAttribute("class","active");
+	}
+  function loadPic(e){
+    var reader = new FileReader();
+    reader.onload = function(){
+     output.src = reader.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+  }
+  function validate(f){
+      var isValid = true;
+      if(f.sName.value.trim()==""){
+             formLabels[0].innerHTML = "Shop Name <span style='color:red;font-size:13px;display:inline;'>(empty name not allowed)</span>";
+             isValid = false;
+      }
+
+      if(f.sPhone.value.trim()==""){
+          formLabels[1].innerHTML = "Phone Number <span style='color:red;font-size:13px;display:inline;'>(empty phone not allowed)</span>";
+          isValid = false;
+      }else if(!f.sPhone.value.trim().match(/^(\+251|0)\s?\d\d\d\d\d\d\d\d\d$/i)){
+          formLabels[1].innerHTML = "Show Name <span style='color:red;font-size:13px;display:inline;'>(invalid phone try 09********)</span>";
+          isValid = false;
+      }
+
+      if(f.sLocation.value.trim()==""){
+          formLabels[2].innerHTML = "Shoe Location <span style='color:red;font-size:13px;display:inline;'>(empty location not allowed)</span>";
+          isValid = false;
+      }
+      
+      return isValid;
+  }
+</script>
+</body>
+</html>

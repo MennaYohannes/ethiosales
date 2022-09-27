@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wellcome to Ethio Sales....</title>
+   <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+    <link rel='stylesheet'   href="my shop.css" />
+</head>
+<body>
+<header id='topHeader'>
+	<img src="assets/logo.png" />
+	<div onclick="toogleList(document.getElementsByTagName('ul')[0])" id='hbm'>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+  <ul>
+    <li  onclick="window.location.href='home.html';">
+      <img src='assets/homeLogo.png'/>
+<span>Home</span>
+</li><li    onclick="window.location.href='my shop.html';">
+    <img  src='assets/myShopLogoBlue.png'/>
+<span>My Shops</span>
+  </li><li class='active' onclick="window.location.href='Subscribed.html';">
+    <img src='assets/subscribedLogo.png'/>
+<span>Subscribed</span>
+  </li><li onclick="window.location.href='new shop.html';">
+    <img src='assets/newShopLogo.png'/>
+<span>New Shop</span>
+  </li><li onclick="window.location.href='logout.html';">
+    <img src='assets/logout.png'/>
+<span>Logout</span>
+  </li>
+  </ul>
+
+</header>
+<div id='headerSpace'></div>
+<main >
+  <br/><br/>
+	<div id='feedCont'>
+		<div id='feedShops'></div>
+    <div align='center' id='loading'> <img src='assets/loading.gif' width='300px' /></div>
+		<div align='center' id='seemore'> <button style='background: #0d529d !important;'>See More</button></div> 
+	</div>
+</main>
+<footer>
+	<div id='infoCont'>
+           <div id='aboutUs'>
+       	 <span>About Us<br/></span>
+       	 <span>
+       	 	ethiosales.com is the first online sales solution provider introduced in Ethiopia. The website advertises salses across a wide range of job types by different employers, including private, local, international, multinational, who are buying in Ethiopia. 
+       	 </span>
+       </div>
+       <div id='contactUs'>
+       	<span>Contact Us<br/></span>
+       	<span>
+       		Address: Snap Plaza 8th floor, Bole Next to The Millennium hall. Addis Ababa, Ethiopia
+<br/>Phone: +251-116-67-33-24 | +251-924 91 08 47
+<br/>Email: info@ethiosales.net info@ethiosales.net 
+       	</span>
+       </div>
+        <div style="clear:both"></div>
+	</div>
+	<div id='socials' align=center >
+		<img  src="assets/fbIcon.png" />
+    <img  src="assets/instagramIcon.png" />
+    <img  src="assets/twitterIcon.png" />
+    <img  src="assets/whatsUpIcon.png" />
+	</div>
+	<p>&copy;2020 ethiosales.com All right reserveds<p><br/><br/>
+</footer>
+<script type="text/javascript">
+  var lastRead = '0';
+  function toogleList(doc){
+    if(doc.style.display =='block')
+          doc.style.display ='none';
+        else doc.style.display ='block';
+  }
+  function changeTo(doc){
+    document.getElementById('option1').removeAttribute('class');
+    document.getElementById('option2').removeAttribute('class');
+    document.getElementById('selectedItem').innerHTML = doc.innerHTML+"<span id='caret'></span>";
+    doc.setAttribute("class","active");
+  }
+
+  function loadShops() {
+     document.getElementById('loading').style.display='block';
+      document.getElementById('seemore').style.display='none';
+    if(lastRead!="-1"){
+           var xmlhttp = new XMLHttpRequest();
+           xmlhttp.onreadystatechange = function() {
+                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   document.getElementById('loading').style.display='none';
+                     document.getElementById('seemore').style.display='none';
+                     var res = JSON.parse(xmlhttp.responseText);   
+                     if(res.data.length==0){
+                      let mes ='No shops here';
+                      document.getElementById("feedShops").innerHTML = `<span style='font-family:arial;font-size:60px;display:block;text-align:center;color:#505050;'>${mes}</span>`;
+                       return;
+                     }
+                     res.data.forEach((shop)=>{
+                      document.getElementById("feedShops").innerHTML += `
+                      <div class="shopPost">
+                          <img class="smallLogo" src="shopPics/${shop.shopPic}">
+                          <span class="saleName">${shop.shopName}</span>
+                          <sapn class="subscriberCount">Subscribers ${shop.subCount}</sapn>
+                          <span class="saleItemInfo"><img src="assets/locationLogo.png"> &nbsp;${shop.shopLocation}</span>
+                          <span class="saleItemInfo"><img src="assets/phoneLogo.png"> &nbsp;${shop.shopPhone}</span>
+                          <br><button onclick="window.open('shop.html?s=${shop.shopId}','_blank');">View Shop</button><br>
+                       </div>`;   
+                     });
+                     lastRead= res.lastRead;
+                     if(lastRead=='-1') document.getElementById('seemore').style.display='none';
+                     else{
+                      document.getElementById('seemore').style.display='block';
+                      document.getElementById('seemore').setAttribute("onclick","loadShops()");
+                    }
+                  }
+            };
+            xmlhttp.open("POST", "loadSubscribedShops.json", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("spoint="+lastRead);
+      }else document.getElementById('seemore').style.display='none'; 
+  }
+  loadShops();
+</script>
+</body>
+</html>

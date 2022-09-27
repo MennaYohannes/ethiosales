@@ -1,0 +1,290 @@
+body,html{margin:0;}
+
+    	#topHeader{
+        width: 100%;
+    		height:100px;
+    		background: #fff;
+        position: fixed;
+    		box-shadow: 1px 1px 5px rgba(114,114,114,0.5);
+        z-index: 999;
+    	}
+      #headerSpace{
+          height:100px;
+      }
+    	#topHeader > img{
+            padding-left:10%;
+    		width:300px;
+    	}
+      #hbm{
+        display: inline-block;
+        background: #fff;
+        border:1px solid lightgrey;
+        border-radius:7px;
+        height: 40px;
+        width: 50px;
+        cursor: pointer;
+        display: none;
+      }
+      #hbm div{
+        width:80%;
+        height:15%;
+        background: lightgrey;
+        margin:10% auto;
+        border-radius: 2px;
+      }
+      header > ul{
+        float:right;
+        list-style-type: none;
+        vertical-align: top;
+        margin:0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #fff;
+         box-shadow: 1px 1px 3px rgba(114,114,114,0.5) !important;
+      }
+      header > ul li{
+        display: inline-block;
+        width:100px;
+        height: auto;
+        padding-top:25px;
+        border-bottom:5px solid white;
+        font-family: arial;
+        color:#7B7B7B;
+        border-left:1px solid rgba(114,114,114,0.2);
+        cursor: pointer;
+        transition: opacity 0.5s;
+      }
+       header > ul li:hover{
+        opacity: 0.5;
+       }
+        header > ul li *{
+        display: block;
+        margin:auto;
+        padding:8px;
+        text-align: center;
+      }
+       header > ul li img{
+       width:20px;
+       height: 20px;
+      }
+       header >  ul li.active{
+        box-shadow: 1px 1px 3px rgba(114,114,114,0.5) !important;
+         border-bottom:5px solid #0d529d;
+         color:#0d529d;
+       }
+      header > ul li.active + li{
+        border-left:none;
+       }
+    main{
+          width:100%;
+        height:auto;
+        margin:auto;
+        background: rgb(234,234,234);
+        background: white;
+        background: #5DA2D5;
+         background: rgb(234,234,234);
+         background: white;
+         min-height:410px;
+      }
+     main #feedCont{
+            width:95%;
+            max-width:600px;
+            height: auto;
+            padding:6.5px;
+            min-height:200px;
+            margin:auto;
+            background: white;
+            border-radius: 8px;
+            background: transparent;
+          }
+            main #feedCont .salePost, main #feedCont .shopPost{
+               background: white;
+               margin-bottom: 5px;
+              border-radius:8px 8px 5px 5px;
+              border:1px solid #FED4CE;
+              overflow: hidden;
+            }
+            main #feedCont .shopPost{
+              padding:5px;
+            }
+           
+           main #feedCont .shopeInfo{
+              background: #FF6A48;
+              background:  #0d529d;
+              background: #337ab7;
+              background: #FED4CE;
+              background: #E8E2DB;
+              background: rgb(255,255,255);
+              padding:5px;
+           }
+          main #feedCont #loading{
+            font-family: arial;
+            padding:1%;
+            text-align: center;
+            animation: lod 1s infinite;
+            border-radius:12px;
+            margin:auto;
+            margin-bottom: 1%;
+            margin:2%;
+          }
+
+          main #feedCont .saleName{
+           vertical-align: top;
+           margin-left:1%;
+           color:rgba(55,55,55,0.8);
+           font-family: 'lato';
+           font-weight: 100;
+           font-size: 22px;
+          }
+          main #feedCont  .subscriberCount{
+            font-family:arial;
+            font-size:12px;
+            color:rgba(100,100,100,0.8);
+            display: block;
+            float:right;
+            font-weight: 100;
+          }
+          main #feedCont  .saleItemInfo{
+            display: block;
+            font-family:arial;
+            font-size:13px;
+            color:rgb(100,100,100);
+            clear: both;
+            margin:1%;
+          }
+          main #feedCont .saleItemInfo img{
+            display:inline-block;
+            width:20px;
+            height: 20px;
+            border:none;
+          }
+            main #feedCont  .saleItemInfo *{
+              vertical-align: top;
+            }
+           main #feedCont  .saleItemName{
+             font-size: 17px;
+           }
+              main #feedCont  .saleItemPic{
+                width:100%;
+                display: block;
+                margin:auto;
+              }
+      main #feedCont button{
+        display: block;
+          border:none;
+                        background: #337ab7;
+          background: #0d529d;
+           background: #FF6A48;
+
+         margin-left:5px;
+          color:#fff;
+          padding:5px 20px;
+          margin-right:5%;
+          border-radius:20px;
+          cursor:pointer;
+          transition: all 0.3s;
+        }
+         main #feedCont  button:hover{
+           opacity: 0.9;
+           box-shadow: 1px 1px 3px rgba(114,114,114,0.8);
+         }
+          .smallLogo{
+             display: inline-block;
+             width:40px;
+             height: 40px;
+             border:none;
+             border-radius:22px;
+                          box-shadow: 1px 1px 3px rgb(0,0,0,0.8);
+
+          }
+    	footer{
+    		width:100%;
+    		background: #333333;
+    		margin:0;
+    	}
+    	
+    	footer #infoCont{
+    		width:100%;
+    		max-width: 1000px;
+    		width:auto;
+            margin:auto;
+            padding:10px;
+            font-family: arial;
+            color:white;
+            font-size:13px;
+     	}
+     	footer #infoCont > div[id]{
+    		margin-left:5px;
+    		width:100%;
+    		max-width: 490px;
+     	}
+     	footer #infoCont #aboutUs{
+          float:left;
+
+     	}
+     	footer #infoCont #contactUs{
+     		float:left;
+     	}
+     	footer #infoCont #aboutUs span:nth-child(1),footer #infoCont #contactUs span:nth-child(1){
+     		opacity: 0.5;
+     		font-size:16px;
+     	}
+     	footer p{
+            font-family: arial;
+            color:white;
+            font-size:13px;
+            text-align: center;
+            opacity: 0.7;
+            margin:0;
+     	}
+     	footer #socials img{
+     		display: inline-block;
+     		width:30px;
+     		height:30px;
+     		margin:auto;
+     	}
+    	 @media only screen and (min-width: 503px) and (max-width:950px){
+           #hbm{
+             display: block;
+             float:right;
+             margin:2%;
+           }
+           header > ul{
+            display: none;
+           }
+    	 }
+       @media only screen and (min-width: 0px) and (max-width: 503px){
+            #hbm{
+             display: block;
+             float:right;
+             margin:2%;
+           }
+           header > ul{
+            display: none;
+            width:100%;
+            height: auto;
+           } 
+           header > ul li{
+               display: block;
+               width:100%;
+               border-bottom: 1px solid  rgba(114,114,114,0.5);
+           }
+           header > ul li *{
+              display: -inline-block;
+           }
+           main #searchCont #search,main #searchCont #search #btn button,main #searchCont #search #key input{
+            font-size:13px;
+           }
+        }
+        @media only screen and  (max-width: 413px){
+            #topHeader > img{
+                 width:60% !important;
+                 height: 100px;
+                 padding-left:0% !important;
+            }
+            main #feedCont button{
+               display: block;
+               margin-top: 5px;
+             }
+       }
